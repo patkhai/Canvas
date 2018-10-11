@@ -28,6 +28,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="Oka-fW-wlm" appends="YES" id="gRb-3m-0Hv"/>
+                                            <outletCollection property="gestureRecognizers" destination="rLO-7g-nqJ" appends="YES" id="Mv4-Iv-Hws"/>
                                         </connections>
                                     </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="down_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="Id5-Ky-uzy">
@@ -41,6 +42,7 @@
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="ir7-zQ-7Th" appends="YES" id="OUe-3G-2Yu"/>
                                             <outletCollection property="gestureRecognizers" destination="Yjq-pg-y6X" appends="YES" id="a3C-hg-OUz"/>
+                                            <outletCollection property="gestureRecognizers" destination="5FF-Kp-dQY" appends="YES" id="HgG-1w-gC0"/>
                                         </connections>
                                     </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="happy" translatesAutoresizingMaskIntoConstraints="NO" id="Xd3-yW-D01">
@@ -49,6 +51,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="JHt-V5-pjQ" appends="YES" id="KJT-mc-vni"/>
+                                            <outletCollection property="gestureRecognizers" destination="yHc-pw-QgL" appends="YES" id="yky-2u-BRj"/>
                                         </connections>
                                     </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="sad" translatesAutoresizingMaskIntoConstraints="NO" id="Fwt-Li-CcN">
@@ -57,6 +60,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="g5h-fz-MZb" appends="YES" id="m9K-eJ-nFM"/>
+                                            <outletCollection property="gestureRecognizers" destination="fL2-Kw-vrq" appends="YES" id="xJd-3k-XSa"/>
                                         </connections>
                                     </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="wink" translatesAutoresizingMaskIntoConstraints="NO" id="C1A-bP-tl8">
@@ -65,6 +69,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="5sC-E8-tEc" appends="YES" id="TTM-1u-v2m"/>
+                                            <outletCollection property="gestureRecognizers" destination="JjW-L7-c83" appends="YES" id="mBE-3r-UKc"/>
                                         </connections>
                                     </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="tongue" translatesAutoresizingMaskIntoConstraints="NO" id="Si0-2D-yaq">
@@ -73,6 +78,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="i9B-su-UY4" appends="YES" id="uyC-aR-MsY"/>
+                                            <outletCollection property="gestureRecognizers" destination="aXT-o7-dZg" appends="YES" id="NKH-li-ouc"/>
                                         </connections>
                                     </imageView>
                                 </subviews>
@@ -138,6 +144,12 @@
                         <action selector="didPinchface:" destination="BYZ-38-t0r" id="Iw1-SI-KpC"/>
                     </connections>
                 </pinchGestureRecognizer>
+                <rotationGestureRecognizer id="5FF-Kp-dQY"/>
+                <rotationGestureRecognizer id="yHc-pw-QgL"/>
+                <rotationGestureRecognizer id="aXT-o7-dZg"/>
+                <rotationGestureRecognizer id="rLO-7g-nqJ"/>
+                <rotationGestureRecognizer id="fL2-Kw-vrq"/>
+                <rotationGestureRecognizer id="JjW-L7-c83"/>
             </objects>
             <point key="canvasLocation" x="136.23188405797103" y="132.88043478260872"/>
         </scene>

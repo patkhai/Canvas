@@ -35,7 +35,9 @@ class CanvasViewController: UIViewController {
         trayDown = CGPoint(x: trayView.center.x ,y: trayView.center.y + trayDownOffset)
 //        newlyCreatedFace.isUserInteractionEnabled = true
         // Do any additional setup after loading the view.
-        
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanSelect(_:)))
+        trayView.isUserInteractionEnabled = true
+        trayView.addGestureRecognizer(panGestureRecognizer)
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,37 +77,82 @@ class CanvasViewController: UIViewController {
     
     var newlyCreatedFaceOriginalCenter: CGPoint!
     
-    @IBAction func didPinchface(_ sender: UIPanGestureRecognizer) {
-        let scale = pinchGesture.scale
-        let imageView = sender.view as! UIImageView
-        imageView.transform = CGAffineTransform(scaleX: 4, y: 3)
-        pinchGesture.scale = 1
-    }
-    
     
     @IBAction func didPanface(_ sender: UIPanGestureRecognizer) {
-
-    
+        let location = sender.location(in: view)
+        let velocity = sender.velocity(in: view)
+        let translation = sender.translation(in: view)
+        
+        // Gesture Recognizer
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(facePost(_:)))
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(didFacePinch(_: )))
+        let rotateGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(didFaceRotate(_:)))
+        
         if sender.state == .began {
+            print("Gesture began")
             let imageView = sender.view as! UIImageView
+            
             newlyCreatedFace = UIImageView(image: imageView.image)
+            
             view.addSubview(newlyCreatedFace)
             newlyCreatedFace.center = imageView.center
-
             newlyCreatedFace.center.y += trayView.frame.origin.y
             newlyCreatedFaceOriginalCenter = newlyCreatedFace.center
-
-        } else if sender.state == .changed {
             
-            let translation = sender.translation(in: view)
-            newlyCreatedFace.center = CGPoint(x: newlyCreatedFaceOriginalCenter.x + translation.x, y: newlyCreatedFaceOriginalCenter.y + translation.y)
-
-        } else if sender.state == .ended {
-
-            }
-
+            newlyCreatedFace.isUserInteractionEnabled = true
+            newlyCreatedFace.addGestureRecognizer(panGestureRecognizer)
+            newlyCreatedFace.addGestureRecognizer(pinchGestureRecognizer)
+            newlyCreatedFace.addGestureRecognizer(rotateGestureRecognizer)
+            
         }
+        else if sender.state == .changed {
+            print("Gesture is changing")
+            newlyCreatedFace.center = CGPoint(x: newlyCreatedFaceOriginalCenter.x + translation.x, y: newlyCreatedFaceOriginalCenter.y + translation.y)
+            
+        }
+        else if sender.state == .ended {
+            print("Gesture ended")
+        }
+
+    }
     
+    @objc func didFacePinch(_ sender: UIPinchGestureRecognizer){
+        
+        let scale = sender.scale
+        let imageView = sender.view as! UIImageView
+        imageView.transform = imageView.transform.scaledBy(x: scale, y: scale)
+        sender.scale = 1
+        
+    }
+    
+    @objc func didFaceRotate(_ sender: UIRotationGestureRecognizer){
+        
+        let rotation = sender.rotation
+        let imageView = sender.view as! UIImageView
+        imageView.transform = imageView.transform.rotated(by: rotation)
+        sender.rotation = 0
+    }
+    
+    @objc func facePost(_ sender: UIPanGestureRecognizer){
+        let location = sender.location(in: view)
+        let velocity = sender.velocity(in: view)
+        let translation = sender.translation(in: view)
+        
+        if sender.state == .began {
+            
+            newlyCreatedFace = sender.view as! UIImageView
+            newlyCreatedFaceOriginalCenter = newlyCreatedFace.center
+        }
+        else if sender.state == .changed {
+            
+            print("Gesture is changing")
+            newlyCreatedFace.center = CGPoint(x: newlyCreatedFaceOriginalCenter.x + translation.x, y: newlyCreatedFaceOriginalCenter.y + translation.y)
+        }
+        else if sender.state == .ended {
+            
+            print("Gesture ended")
+        }
+    }
     
     /*
     // MARK: - Navigation
