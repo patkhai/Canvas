@@ -36,6 +36,7 @@ class CanvasViewController: UIViewController {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanSelect(_:)))
         trayView.isUserInteractionEnabled = true
         trayView.addGestureRecognizer(panGestureRecognizer)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,17 +50,21 @@ class CanvasViewController: UIViewController {
         
         if sender.state == .began {
             trayOriginalCenter = trayView.center
+           
             
         } else if sender.state == .changed {
             
             trayView.center = CGPoint(x: trayOriginalCenter.x, y: trayOriginalCenter.y + translation.y)
             
+            
         } else if sender.state == .ended {
             let velocity = sender.velocity(in: view)
             if velocity.y > 0 {
-                UIView.animate(withDuration: 0.3) {
-                    self.trayView.center = self.trayDown
-                }
+                
+                UIView.animate(withDuration:0.6, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options:[] ,
+                               animations: { () -> Void in
+                                self.trayView.center = self.trayDown
+                }, completion: nil)
             } else {
                 UIView.animate(withDuration: 0.3) {
                     self.trayView.center = self.trayUp
@@ -84,12 +89,14 @@ class CanvasViewController: UIViewController {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(facePost(_:)))
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(didFacePinch(_: )))
         let rotateGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(didFaceRotate(_:)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(didTapFace(_:)))
         
         if sender.state == .began {
             print("Gesture began")
             let imageView = sender.view as! UIImageView
             
             newlyCreatedFace = UIImageView(image: imageView.image)
+             newlyCreatedFace.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
             
             view.addSubview(newlyCreatedFace)
             newlyCreatedFace.center = imageView.center
@@ -100,6 +107,8 @@ class CanvasViewController: UIViewController {
             newlyCreatedFace.addGestureRecognizer(panGestureRecognizer)
             newlyCreatedFace.addGestureRecognizer(pinchGestureRecognizer)
             newlyCreatedFace.addGestureRecognizer(rotateGestureRecognizer)
+            newlyCreatedFace.addGestureRecognizer(tapGestureRecognizer)
+            
             
         }
         else if sender.state == .changed {
@@ -130,22 +139,33 @@ class CanvasViewController: UIViewController {
         sender.rotation = 0
     }
     
+    @objc func didTapFace(_ sender: UITapGestureRecognizer) {
+     
+        sender.numberOfTapsRequired = 2
+        newlyCreatedFace.removeFromSuperview()
+    }
+    
     @objc func facePost(_ sender: UIPanGestureRecognizer){
         let translation = sender.translation(in: view)
         
         if sender.state == .began {
             
             newlyCreatedFace = sender.view as! UIImageView
+            
+            
             newlyCreatedFaceOriginalCenter = newlyCreatedFace.center
+            
         }
         else if sender.state == .changed {
             
             print("Gesture is changing")
+           
             newlyCreatedFace.center = CGPoint(x: newlyCreatedFaceOriginalCenter.x + translation.x, y: newlyCreatedFaceOriginalCenter.y + translation.y)
         }
         else if sender.state == .ended {
             
             print("Gesture ended")
+           
         }
     }
     
