@@ -19,8 +19,6 @@ class CanvasViewController: UIViewController {
     @IBOutlet weak var tongueFace: UIImageView!
     @IBOutlet weak var winkFace: UIImageView!
     
-
-    var pinchGesture = UIPinchGestureRecognizer()
     
     var newlyCreatedFace: UIImageView!
     var trayOriginalCenter: CGPoint!
@@ -79,8 +77,7 @@ class CanvasViewController: UIViewController {
     
     
     @IBAction func didPanface(_ sender: UIPanGestureRecognizer) {
-        let location = sender.location(in: view)
-        let velocity = sender.velocity(in: view)
+       
         let translation = sender.translation(in: view)
         
         // Gesture Recognizer
@@ -134,8 +131,6 @@ class CanvasViewController: UIViewController {
     }
     
     @objc func facePost(_ sender: UIPanGestureRecognizer){
-        let location = sender.location(in: view)
-        let velocity = sender.velocity(in: view)
         let translation = sender.translation(in: view)
         
         if sender.state == .began {
